@@ -1,0 +1,12 @@
+trubrics>=1.4.3
+streamlit>=1.28
+streamlit-feedback
+openai>=1.2
+langchain>=0.0.217
+langchain-community
+duckduckgo-search
+anthropic>=0.3.0
+pypinyin>=0.49.0
+requests
+numpy
+pinyin
