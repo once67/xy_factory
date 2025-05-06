@@ -54,13 +54,13 @@ st.markdown("""
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.image(r"image\1.jpg", caption="🍌 禁止蕉绿", use_container_width=True)
+    st.image("image/1.jpg", caption="🍌 禁止蕉绿", use_container_width=True)
 
 with col2:
-    st.image(r"image\2.jpg", caption="文创帆布包", use_container_width=True)
+    st.image("image/2.jpg", caption="文创帆布包", use_container_width=True)
 
 with col3:
-    st.image(r"image\3.jpg", caption="谐音祝福语", use_container_width=True)
+    st.image("image/3.jpg", caption="谐音祝福语", use_container_width=True)
 
 
 
