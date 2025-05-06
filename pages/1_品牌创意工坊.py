@@ -9,7 +9,9 @@ from utils.llm_calls import generate_brand_names
 
 
 def generate_logo_by_prompt(prompt: str, api_key: str) -> str:
-    import requests, time
+    import time
+
+    import requests
 
     create_url = "https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis"
     headers = {
@@ -153,11 +155,14 @@ if st.button("🚀 开始生成品牌创意", use_container_width=True):
                             brand_name = result["brand_names"][0]["name"]
                             prompt = f"{style}风格的logo设计，品牌名：{brand_name}，关键词：{brand_keyword}，行业：{industry}，定位：{positioning}"
 
-                            with st.spinner("正在生成Logo，请稍候..."):
-                                image_url = generate_logo_by_prompt(prompt, "sk-4c4d1ff35ad94626bb758fc8f1cf12cb")
-
-                            st.image(image_url, caption=f"品牌名{brand_name}的Logo概念", use_container_width=True)
-
+                            # 从环境变量获取 DashScope API 密钥
+                            dashscope_api_key = os.environ.get("DASHSCOPE_API_KEY", "")
+                            if not dashscope_api_key:
+                                st.warning("⚠️ 未设置环境变量 DASHSCOPE_API_KEY，Logo生成功能不可用")
+                            else:
+                                with st.spinner("正在生成Logo，请稍候..."):
+                                    image_url = generate_logo_by_prompt(prompt, dashscope_api_key)
+                                    st.image(image_url, caption=f"品牌名{brand_name}的Logo概念", use_container_width=True)
                         else:
                             st.warning("无法获取品牌名生成Logo")
                     except Exception as e:

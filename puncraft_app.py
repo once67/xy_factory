@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st
 
 # ---- 页面基本设置 ----
@@ -6,12 +8,26 @@ st.set_page_config(page_title="谐音工坊 (PunCraft)", page_icon="✨", layout
 # ---- API Key设置（侧边栏） ----
 with st.sidebar:
     st.title("🔑 API设置")
-    api_key = st.text_input(
-        "DeepSeek API Key",
-        type="password",
-        help="输入你的DeepSeek API Key以启用生成功能",
-        key="puncraft_api_key"
-    )
+    
+    # 优先从环境变量获取 API Key
+    env_api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    
+    if env_api_key:
+        # 如果环境变量中有 API Key，则直接使用
+        st.success("✅ 已从环境变量加载 DeepSeek API Key")
+        api_key = env_api_key
+        st.session_state["puncraft_api_key"] = env_api_key
+    else:
+        # 否则，提供输入框让用户手动输入
+        api_key = st.text_input(
+            "DeepSeek API Key",
+            type="password",
+            help="输入你的DeepSeek API Key以启用生成功能",
+            key="puncraft_api_key"
+        )
+        
+        if not api_key:
+            st.warning("⚠️ 请输入 DeepSeek API Key 或设置环境变量 DEEPSEEK_API_KEY")
     
     st.caption("""
     ### 如何获取API Key
@@ -19,7 +35,7 @@ with st.sidebar:
     2. 在个人设置中创建API Key
     3. 复制API Key填入此处
     
-    API Key仅在当前会话有效，刷新页面后需重新输入。
+    推荐设置环境变量 DEEPSEEK_API_KEY，这样应用启动时会自动读取。
     """)
     
     st.divider()

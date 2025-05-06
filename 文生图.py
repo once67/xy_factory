@@ -1,10 +1,14 @@
-import requests
+import os
 import time
 
-API_KEY = "sk-4c4d1ff35ad94626bb758fc8f1cf12cb"
 import requests
-import time
 
+# 从环境变量获取 API 密钥
+API_KEY = os.environ.get("DASHSCOPE_API_KEY", "")
+if not API_KEY:
+    print("[!] 错误: 未设置环境变量 DASHSCOPE_API_KEY")
+    print("[!] 请设置环境变量后再运行，例如: export DASHSCOPE_API_KEY=your_api_key")
+    exit(1)
 
 # 要生成的图像描述
 prompt = "生成一个卡通公司logo的格式：一只白色的仓鼠，手里包着瓜子，龇着大牙"
