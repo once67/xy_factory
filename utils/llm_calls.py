@@ -33,7 +33,7 @@ def generate_brand_names(
     industry: str = "",
     positioning: str = "",
     style: List[str] = None,
-    model: str = "deepseek-reasoner",
+    model: str = "deepseek-chat",
     temperature: float = 0.7,
     max_tokens: int = 1024
 ) -> Dict[str, Any]:
@@ -132,7 +132,7 @@ def generate_cp_names(
     name1: str,
     name2: str,
     style: str = "甜蜜",
-    model: str = "deepseek-reasoner",
+    model: str = "deepseek-chat",
     temperature: float = 0.7,
     max_tokens: int = 1024
 ) -> Dict[str, Any]:
@@ -229,7 +229,7 @@ def generate_pun_copy(
     length: str = "中等(10-20字)",
     options: Dict[str, bool] = None,
     more_requirements: str = "",
-    model: str = "deepseek-reasoner",
+    model: str = "deepseek-chat",
     temperature: float = 0.7,
     max_tokens: int = 1024
 ) -> Dict[str, Any]:

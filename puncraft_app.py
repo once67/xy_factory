@@ -35,7 +35,7 @@ with st.sidebar:
     2. 在个人设置中创建API Key
     3. 复制API Key填入此处
     
-    推荐设置环境变量 DEEPSEEK_API_KEY，这样应用启动时会自动读取。
+
     """)
     
     st.divider()
