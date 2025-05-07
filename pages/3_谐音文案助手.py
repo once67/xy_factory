@@ -12,14 +12,29 @@ st.markdown("**让文案充满创意，让营销更具传播力**")
 
 # 侧边栏 - 确保API Key可用
 with st.sidebar:
-    api_key = st.session_state.get("puncraft_api_key", "")
-    if not api_key:
-        api_key = st.text_input(
-            "DeepSeek API Key",
-            type="password",
-            help="输入你的DeepSeek API Key以启用生成功能",
-            key="copy_api_key"
-        )
+    # 优先从环境变量获取 API Key
+    env_api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    
+    if env_api_key:
+        # 环境变量中有 API Key，直接使用
+        api_key = env_api_key
+        st.session_state["puncraft_api_key"] = env_api_key
+        st.success("✅ 已从环境变量加载 DeepSeek API Key")
+    else:
+        # 尝试从 session_state 获取
+        api_key = st.session_state.get("puncraft_api_key", "")
+        if not api_key:
+            # 都没有，提示用户输入
+            api_key = st.text_input(
+                "DeepSeek API Key",
+                type="password",
+                help="输入你的DeepSeek API Key以启用生成功能",
+                key="copy_api_key"
+            )
+            if api_key:
+                st.session_state["puncraft_api_key"] = api_key
+            else:
+                st.warning("⚠️ 请输入 DeepSeek API Key 或设置环境变量 DEEPSEEK_API_KEY")
 
 st.divider()
 
